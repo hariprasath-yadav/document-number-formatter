@@ -29,11 +29,11 @@ String between "[" and "]" brackets will be taken to comput the result.
 
 | Type | Sample Code | Examples | Output | Desc |
 | -- | -- | -- | -- | -- |
-| Date | [date:YY] | Ex 1: [date:YY] | 20 | "YY" will convert in to current year
-||| Ex 2: [date:YYYY] | 2020 | "YYYY" will return full year
-|||Ex 3: [date:YY+1] | 21 |
-|||Ex 4: [date:YY=apr] | 19 | As default January is the year start if you specify year start month like in the example, given month will be taken as start month of the year, if the current month is lessthan the given month it will consider it as previous year, this function will help on producing Financial year (or) Academic year document numbers.
-|||Ex 5: [date:YY+1=jan] | 21 | You can combine "+1" and "month" in single statement like this.
+| Date | [date:YY] | Ex 1: [date:YY] | 20 | "YY" will convert in to current year |
+||| Ex 2: [date:YYYY] | 2020 | "YYYY" will return full year |
+|||Ex 3: [date:YY+1] | 21 | One year added to the current Year |
+|||Ex 4: [date:YY=apr] | 19 | As default January is the year start if you specify year start month like in the example, given month will be taken as start month of the year, if the current month is lessthan the given month it will consider it as previous year, this function will help on producing Financial year (or) Academic year document numbers. |
+|||Ex 5: [date:YY+1=jan] | 21 | You can combine "+1" and "month" in single statement like this. |
 | Value | [value:size:5] | Ex 1: [value:size:5], arg: 123 | 00123 | It will leftpad "0" to the second argument number passed to the funtion |
 ||| Ex 2: [value:size:8], arg: 789 | 00000789 | It will leftpad "0" to the second argument number passed to the funtion |
 
@@ -57,4 +57,5 @@ TPR/19-20/000123
 | [date:YY=apr] | this is converted into "19" |
 | - | this character printed as same |
 | [date:YY+1=apr] | this is converted into "20" |
+| / | this character printed as same |
 | [val:size:6] | this is converted into "000123" with the value of argument |
