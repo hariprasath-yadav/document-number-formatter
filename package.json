@@ -1,0 +1,37 @@
+{
+  "name": "document-number-formatter",
+  "version": "1.0.0",
+  "description": "Document Number Formatter",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "Document Number Formatter",
+    "Document Number Format",
+    "Bill Number Formatter",
+    "Bill Number Format",
+    "Bill Formatter",
+    "Number Formatter",
+    "Number Format"
+  ],
+  "author": "Hariprasath Yadav",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.8.2",
+    "@typescript-eslint/parser": "^4.8.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.14.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "typescript": "^4.1.2"
+  },
+  "files": [
+    "dist/**/*"
+  ]
+}
