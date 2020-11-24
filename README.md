@@ -37,7 +37,7 @@ String between "[" and "]" brackets will be taken to comput the result.
 | Value | [value:size:5] | Ex 1: [value:size:5], arg: 123 | 00123 | It will leftpad "0" to the second argument number passed to the funtion |
 ||| Ex 2: [value:size:8], arg: 789 | 00000789 | It will leftpad "0" to the second argument number passed to the funtion |
 
-## Example and Explanation :
+## Example and Explanation 1 :
 ### Example :
 ```js
 var { formatDocumentNumber } = require('document-number-formatter')
@@ -59,3 +59,26 @@ TPR/19-20/000123
 | [date:YY+1=apr] | this is converted into "20" |
 | / | this character printed as same |
 | [val:size:6] | this is converted into "000123" with the value of argument |
+
+## Example and Explanation 2 :
+### Example :
+```js
+var { formatDocumentNumber } = require('document-number-formatter')
+console.log(formatDocumentNumber('TPR/[date:YY]-[date:YY+1]/[val]', 123, 6, "apr"))
+```
+> If todays date is ***"28 Feb 2020"***
+### Output :
+```
+TPR/19-20/000123
+```
+> Above format **"TPR/19-20/"** will continue from "01 Apr 2019" to "31 Mar 2020" and then it will turn into **"TPR/20-21/"** from "01 Apr 2020".
+
+### Explanation :
+| Code | Explanation |
+| -- | -- |
+| TPR/ | this is not in between square brackets  so it printed as like given. |
+| [date:YY] | this is converted into "19" fourth argument month is "apr" |
+| - | this character printed as same |
+| [date:YY+1] | this is converted into "20" fourth argument month is "apr" |
+| / | this character printed as same |
+| [val] | this is converted into "000123" with the second argument value and third argument size |
