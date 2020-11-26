@@ -16,7 +16,7 @@ export function testMonths (month: string | number): Months | string {
   }
 }
 
-function formatDate (format: string, month?: string): string {
+function formatDate (format: string, month?: unknown): string {
   const currnetDate = new Date()
   const currentMonth = currnetDate.getMonth()
   const formats = format.split('=')
@@ -38,7 +38,12 @@ function formatDate (format: string, month?: string): string {
         let yearFormat: string
         if (month) {
           yearFormat = format
-          if (currentMonth < Months[month.toLowerCase() as keyof typeof Months]) {
+          if (typeof month === 'string') {
+            month = Months[month.toLowerCase() as keyof typeof Months]
+          } else if (typeof month === 'number') {
+            month = month - 1
+          }
+          if (currentMonth < <number>month) {
             currentYear -= 1
           }
         } else {
@@ -70,7 +75,7 @@ function formatDate (format: string, month?: string): string {
   }
 }
 
-function formatValue (format: string, value: number, size?: number): string {
+function formatValue (format: string, value: string | number, size?: number): string {
   const valString = value.toString()
   const valLength = valString.length
   let formatSize:number
@@ -84,7 +89,7 @@ function formatValue (format: string, value: number, size?: number): string {
   return (formattedNumber)
 }
 
-export function formatDocumentNumber (format: string, value: number, size?: number, month?: string): string {
+export function formatDocumentNumber (format: string, value: string | number, size?: number, month?: string | number): string {
   const seperateFormats = format.split('[')
   let documentNumber = ''
   seperateFormats.forEach(seperateFormat => {
