@@ -1,47 +1,66 @@
 enum Months {
-  jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec,
-  january = jan, february = feb, march = mar, april = apr, june = jun,
-  july = jul, august = aug, septemper = sep, october = oct, november = nov, december = dec
+  january, february, march, april, may, june, july, august, septemper, october, november, december,
+  jan = january, feb = february, mar = march, apr = april, jun = june,
+  jul = july, aug = august, sep = septemper, oct = october, nov = november, dec = december
 }
 
-export function testMonths (month: string | number): Months {
-  return Months[month as keyof typeof Months]
+export function testMonths (month: string | number): Months | string {
+  const monthVal: Months = Months[month as keyof typeof Months]
+  if (typeof monthVal === 'string') {
+    return (<string>monthVal).toUpperCase()
+  } else {
+    return monthVal
+  }
 }
 
 function formatDate (format: string, month?: string): string {
   const currnetDate = new Date()
-  let currentYear = currnetDate.getFullYear()
   const currentMonth = currnetDate.getMonth()
-  let yearFormat: string
-  if (month) {
-    yearFormat = format
-    if (currentMonth < Months[month.toLowerCase() as keyof typeof Months]) {
-      currentYear -= 1
-    }
-  } else {
-    const formats = format.split('=')
-    if (formats.length > 1) {
-      const formatMonth = (formats[1].replace('[', '').replace('=', '').replace(']', ''))
-      if (currentMonth < Months[formatMonth.toLowerCase() as keyof typeof Months]) {
-        currentYear -= 1
+  const formats = format.split('=')
+  const dateFormat = (formats[0].replace('[', '').replace('date:', '').replace(']', ''))
+  switch (dateFormat) {
+    case 'MM':
+      return (currentMonth + 1).toString()
+    case 'MMM':
+      return Months[currentMonth].toUpperCase()
+    case 'MMMM':
+      return Months[currentMonth].toUpperCase()
+    default:
+      if (dateFormat) {
+        let currentYear = currnetDate.getFullYear()
+        let yearFormat: string
+        if (month) {
+          yearFormat = format
+          if (currentMonth < Months[month.toLowerCase() as keyof typeof Months]) {
+            currentYear -= 1
+          }
+        } else {
+          yearFormat = dateFormat
+          if (formats.length > 1) {
+            const formatMonth = (formats[1].replace('[', '').replace('=', '').replace(']', ''))
+            if (currentMonth < Months[formatMonth.toLowerCase() as keyof typeof Months]) {
+              currentYear -= 1
+            }
+          }
+        }
+        let yearOnly = ''
+        const plusSplit = yearFormat.split('+')
+        const minusSplit = yearFormat.split('-')
+        if (plusSplit.length > 1) {
+          currentYear += +(plusSplit[1])
+          yearOnly = plusSplit[0]
+        } else if (minusSplit.length > 1) {
+          currentYear -= +(minusSplit[1])
+          yearOnly = minusSplit[0]
+        } else {
+          yearOnly = yearFormat
+        }
+        const currentYearString = currentYear.toString()
+        return currentYearString.substr(4 - yearOnly.length)
+      } else {
+        return ''
       }
-    }
-    yearFormat = (formats[0].replace('[', '').replace('date:', '').replace(']', ''))
   }
-  let yearOnly = ''
-  const plusSplit = yearFormat.split('+')
-  const minusSplit = yearFormat.split('-')
-  if (plusSplit.length > 1) {
-    currentYear += +(plusSplit[1])
-    yearOnly = plusSplit[0]
-  } else if (minusSplit.length > 1) {
-    currentYear -= +(minusSplit[1])
-    yearOnly = minusSplit[0]
-  } else {
-    yearOnly = yearFormat
-  }
-  const currentYearString = currentYear.toString()
-  return currentYearString.substr(4 - yearOnly.length)
 }
 
 function formatValue (format: string, value: number, size?: number): string {
@@ -53,7 +72,7 @@ function formatValue (format: string, value: number, size?: number): string {
   } else {
     formatSize = +(format.replace('[', '').replace('val:size:', '').replace(']', ''))
   }
-  const padString = new Array(formatSize + 1).join('0')
+  const padString = (formatSize ? new Array(formatSize + 1).join('0') : '')
   const formattedNumber = padString.substr(0, padString.length - valLength) + valString
   return (formattedNumber)
 }

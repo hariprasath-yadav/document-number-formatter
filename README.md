@@ -15,12 +15,18 @@ var { formatDocumentNumber } = require('document-number-formatter')
 
 ## Example :
 ```js
-const formattedNumber = formatDocumentNumber('TPR/[date:YY=apr]-[date:YY+1=apr]/[val:size:6]', 123)
+console.log(formatDocumentNumber('DNF/[date:YY=apr]-[date:YY+1=apr]/[val:size:6]', 123))
+console.log(formatDocumentNumber('BNO/[date:YY]-[date:YY+1]/[val]', 546, 8, "apr"))
+console.log(formatDocumentNumber('DNF/[date:YYYY="jan"]/[date:MM]/[val]', 789, 5))
+console.log(formatDocumentNumber('BNO/[date:YYYY]/[date:MMM]/[val]', 432, 5, "apr"))
 ```
 > if todays date is ***"01 Nov 2020"*** 
 ### Output :
 ```
-TPR/20-21/000123
+DNF/20-21/000123
+BNO/20-21/00000546
+DNF/2020/11/00789
+BNO/2020/NOV/00432
 ```
 
 ## Docs :
@@ -41,19 +47,19 @@ String between "[" and "]" brackets will be taken to comput the result.
 ### Example :
 ```js
 var { formatDocumentNumber } = require('document-number-formatter')
-console.log(formatDocumentNumber('TPR/[date:YY=apr]-[date:YY+1=apr]/[val:size:6]', 123))
+console.log(formatDocumentNumber('DNF/[date:YY=apr]-[date:YY+1=apr]/[val:size:6]', 123))
 ```
 > If todays date is ***"28 Feb 2020"***
 ### Output :
 ```
-TPR/19-20/000123
+DNF/19-20/000123
 ```
-> Above format **"TPR/19-20/"** will continue from "01 Apr 2019" to "31 Mar 2020" and then it will turn into **"TPR/20-21/"** from "01 Apr 2020".
+> Above format **"DNF/19-20/"** will continue from "01 Apr 2019" to "31 Mar 2020" and then it will turn into **"DNF/20-21/"** from "01 Apr 2020".
 
 ### Explanation :
 | Code | Explanation |
 | -- | -- |
-| TPR/ | this is not in between square brackets  so it printed as like given. |
+| DNF/ | this is not in between square brackets  so it printed as like given. |
 | [date:YY=apr] | this is converted into "19" |
 | - | this character printed as same |
 | [date:YY+1=apr] | this is converted into "20" |
@@ -64,19 +70,19 @@ TPR/19-20/000123
 ### Example :
 ```js
 var { formatDocumentNumber } = require('document-number-formatter')
-console.log(formatDocumentNumber('TPR/[date:YY]-[date:YY+1]/[val]', 123, 6, "apr"))
+console.log(formatDocumentNumber('DNF/[date:YY]-[date:YY+1]/[val]', 123, 6, "apr"))
 ```
 > If todays date is ***"28 Feb 2020"***
 ### Output :
 ```
-TPR/19-20/000123
+DNF/19-20/000123
 ```
-> Above format **"TPR/19-20/"** will continue from "01 Apr 2019" to "31 Mar 2020" and then it will turn into **"TPR/20-21/"** from "01 Apr 2020".
+> Above format **"DNF/19-20/"** will continue from "01 Apr 2019" to "31 Mar 2020" and then it will turn into **"DNF/20-21/"** from "01 Apr 2020".
 
 ### Explanation :
 | Code | Explanation |
 | -- | -- |
-| TPR/ | this is not in between square brackets  so it printed as like given. |
+| DNF/ | this is not in between square brackets  so it printed as like given. |
 | [date:YY] | this is converted into "19" fourth argument month is "apr" |
 | - | this character printed as same |
 | [date:YY+1] | this is converted into "20" fourth argument month is "apr" |
