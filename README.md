@@ -33,14 +33,16 @@ BNO/2020/NOV/00432
 String between "[" and "]" brackets will be taken to comput the result.
 > if todays date is ***"01 Feb 2020"*** 
 
-| Type | Sample Code | Examples | Output | Desc |
+| Type | Sample Code For | Examples | Output | Desc |
 | -- | -- | -- | -- | -- |
-| Date | [YY] | Ex 1: [YY] | 20 | "YY" will convert in to current year |
+| Date | Year | Ex 1: [YY] | 20 | "YY" will convert in to current year |
 ||| Ex 2: [YYYY] | 2020 | "YYYY" will return full year |
 |||Ex 3: [YY+1] | 21 | One year added to the current Year |
 |||Ex 4: [YY=apr] | 19 | As default January is the year start if you specify year start month like in the example, given month will be taken as start month of the year, if the current month is lessthan the given month it will consider it as previous year, this function will help on producing Financial year (or) Academic year document numbers. |
 |||Ex 5: [YY+1=jan] | 21 | You can combine "+1" and "month" in single statement like this. |
-| Value | [value:size:5] | Ex 1: [value:size:5], arg: 123 | 00123 | It will leftpad "0" to the second argument number passed to the funtion |
+| Date | Month |Ex 1: [MM] | 02 | It will return current month as two digit numerical format |
+|||Ex 2: [MMM] | FEB | It will return month as 3 character alphabetic format |
+| Value | Value | Ex 1: [value:size:5], arg: 123 | 00123 | It will leftpad "0" to the second argument number passed to the funtion |
 ||| Ex 2: [value:size:8], arg: 789 | 00000789 | It will leftpad "0" to the second argument number passed to the funtion |
 
 ## Example and Explanation 1 :

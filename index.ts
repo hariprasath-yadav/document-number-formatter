@@ -20,7 +20,11 @@ function formatDate (format: string, month?: string): string {
   const dateFormat = (formats[0].replace('[', '').replace('date:', '').replace(']', ''))
   switch (dateFormat) {
     case 'MM':
-      return (currentMonth + 1).toString()
+      if (currentMonth < 10) {
+        return '0' + (currentMonth + 1).toString()
+      } else {
+        return (currentMonth + 1).toString()
+      }
     case 'MMM':
       return Months[currentMonth].toUpperCase()
     case 'MMMM':
