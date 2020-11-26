@@ -1,6 +1,6 @@
 {
   "name": "document-number-formatter",
-  "version": "1.0.10",
+  "version": "1.0.10.1",
   "description": "Document Number Formatter",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

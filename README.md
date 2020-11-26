@@ -18,7 +18,7 @@ var { formatDocumentNumber } = require('document-number-formatter')
 // If you using previous versions that code will not affect the result if you update the package
 console.log(formatDocumentNumber('DNF/[YY=apr]-[YY+1=apr]/[val:size:6]', 123))
 console.log(formatDocumentNumber('BNO/[YY]-[YY+1]/[val]', 546, 8, "apr"))
-console.log(formatDocumentNumber('DNF/[YYYY="jan"]/[MM]/[val]', 789, 5))
+console.log(formatDocumentNumber('DNF/[YYYY=jan]/[MM]/[val]', 789, 5))
 console.log(formatDocumentNumber('BNO/[YYYY]/[MMM]/[val]', 432, 5, "apr"))
 ```
 > if todays date is ***"01 Nov 2020"*** 
@@ -41,10 +41,12 @@ String between "[" and "]" brackets will be taken to comput the result.
 |||Ex 3: [YY+1] | 21 | One year added to the current Year |
 |||Ex 4: [YY=apr] | 19 | As default January is the year start if you specify year start month like in the example, given month will be taken as start month of the year, if the current month is lessthan the given month it will consider it as previous year, this function will help on producing Financial year (or) Academic year document numbers. |
 |||Ex 5: [YY+1=jan] | 21 | You can combine "+1" and "month" in single statement like this. |
+|||Ex 6: [YY], arg = "jan" | 21 | You can also specify start month as common by passing month as fourth argument |
 | Date | Month |Ex 1: [MM] | 02 | It will return current month as two digit numerical format |
 |||Ex 2: [MMM] | FEB | It will return month as 3 character alphabetic format |
 | Value | Value | Ex 1: [value:size:5], arg: 123 | 00123 | It will leftpad "0" to the second argument number passed to the funtion |
 ||| Ex 2: [value:size:8], arg: 789 | 00000789 | It will leftpad "0" to the second argument number passed to the funtion |
+||| Ex 3: [value], args: 789, 8 | 00000789 | It will leftpad 3rd argument number of "0"'s to the second argument number passed to the funtion |
 
 ## Example and Explanation 1 :
 ### Example :
