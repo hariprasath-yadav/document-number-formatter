@@ -82,12 +82,11 @@ export function formatDocumentNumber (format: string, value: number, size?: numb
   let documentNumber = ''
   seperateFormats.forEach(seperateFormat => {
     const formatOnly = seperateFormat.split(']')
-    const colonIndex = formatOnly[0].indexOf(':')
     switch (true) {
-      case (formatOnly[0] === 'val' || formatOnly[0].substring(0, colonIndex) === 'val'):
+      case (formatOnly[0][0] === 'v'):
         documentNumber += formatValue(formatOnly[0], value, size)
         break
-      case (formatOnly[0].substring(0, colonIndex) === 'date'):
+      case (formatOnly[0][0] === 'Y' || formatOnly[0][0] === 'M'):
         documentNumber += formatDate(formatOnly[0], month)
         break
       default:
