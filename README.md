@@ -15,6 +15,7 @@ var { formatDocumentNumber } = require('document-number-formatter')
 
 ## Example :
 ```js
+// If you using previous versions that code will not affect the result if you update the package
 console.log(formatDocumentNumber('DNF/[YY=apr]-[YY+1=apr]/[val:size:6]', 123))
 console.log(formatDocumentNumber('BNO/[YY]-[YY+1]/[val]', 546, 8, "apr"))
 console.log(formatDocumentNumber('DNF/[YYYY="jan"]/[MM]/[val]', 789, 5))

@@ -9,7 +9,10 @@ export function testMonths (month: string | number): Months | string {
   if (typeof monthVal === 'string') {
     return (<string>monthVal).toUpperCase()
   } else {
-    return monthVal
+    if (monthVal < 10) {
+      return '0' + (monthVal + 1).toString()
+    }
+    return monthVal + 1
   }
 }
 
@@ -86,11 +89,12 @@ export function formatDocumentNumber (format: string, value: number, size?: numb
   let documentNumber = ''
   seperateFormats.forEach(seperateFormat => {
     const formatOnly = seperateFormat.split(']')
+    const colonIndex = formatOnly[0].indexOf(':')
     switch (true) {
       case (formatOnly[0][0] === 'v'):
         documentNumber += formatValue(formatOnly[0], value, size)
         break
-      case (formatOnly[0][0] === 'Y' || formatOnly[0][0] === 'M'):
+      case (formatOnly[0].substring(0, colonIndex) === 'date' || formatOnly[0][0] === 'Y' || formatOnly[0][0] === 'M'):
         documentNumber += formatDate(formatOnly[0], month)
         break
       default:
