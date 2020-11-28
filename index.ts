@@ -22,6 +22,10 @@ function formatDate (format: string, month?: unknown): string {
   const formats = format.split('=')
   const dateFormat = (formats[0].replace('[', '').replace('date:', '').replace(']', ''))
   switch (dateFormat) {
+    case 'D':
+      return currnetDate.getDate().toString()
+    case 'DD':
+      return (currnetDate.getDate() < 10 ? '0' : '') + currnetDate.getDate().toString()
     case 'MM':
       if (currentMonth < 10) {
         return '0' + (currentMonth + 1).toString()
@@ -82,7 +86,7 @@ function formatValue (format: string, value: string | number, size: number): str
   if (size) {
     formatSize = size
   } else {
-    formatSize = +(format.replace('[', '').replace('val:size:', '').replace(']', ''))
+    formatSize = +(format.replace('[', '').replace('val:size:', '').replace('v', '').replace(']', ''))
   }
   const padString = (formatSize ? new Array(formatSize + 1).join('0') : '')
   const formattedNumber = padString.substr(0, padString.length - valLength) + valString
@@ -99,7 +103,7 @@ export function formatDocumentNumber (format: string, value: string | number = '
       case (formatOnly[0][0] === 'v'):
         documentNumber += formatValue(formatOnly[0], value, size)
         break
-      case (formatOnly[0].substring(0, colonIndex) === 'date' || formatOnly[0][0] === 'Y' || formatOnly[0][0] === 'M'):
+      case (formatOnly[0].substring(0, colonIndex) === 'date' || formatOnly[0][0] === 'Y' || formatOnly[0][0] === 'M' || formatOnly[0][0] === 'D'):
         documentNumber += formatDate(formatOnly[0], month)
         break
       default:
