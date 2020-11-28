@@ -75,7 +75,7 @@ function formatDate (format: string, month?: unknown): string {
   }
 }
 
-function formatValue (format: string, value: string | number, size?: number): string {
+function formatValue (format: string, value: string | number, size: number): string {
   const valString = value.toString()
   const valLength = valString.length
   let formatSize:number
@@ -89,7 +89,7 @@ function formatValue (format: string, value: string | number, size?: number): st
   return (formattedNumber)
 }
 
-export function formatDocumentNumber (format: string, value: string | number, size?: number, month?: string | number): string {
+export function formatDocumentNumber (format: string, value: string | number = '0', size = 0, month?: string | number): string {
   const seperateFormats = format.split('[')
   let documentNumber = ''
   seperateFormats.forEach(seperateFormat => {
