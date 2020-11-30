@@ -4,28 +4,63 @@ enum Months {
   jul = july, aug = august, sep = septemper, oct = october, nov = november, dec = december
 }
 
+/**
+ * Returns the week number for this date.  dowOffset is the day of week the week
+ * "starts" on for your locale - it can be from 0 to 6. If dowOffset is 1 (Monday),
+ * the week returned is the ISO 8601 week number.
+ * @param int dowOffset
+ * @return int
+ */
+// eslint-disable-next-line no-extend-native
+export function getWeek (currendDate: Date, dowOffset?: number): number {
+  /* getWeek() was developed by Nick Baicoianu at MeanFreePath: http://www.meanfreepath.com */
+  dowOffset = typeof dowOffset === 'number' ? dowOffset : 0 // default dowOffset to zero
+  const newYear = new Date(currendDate.getFullYear(), 0, 1)
+  let day = newYear.getDay() - dowOffset // the day of week the year begins on
+  day = (day >= 0 ? day : day + 7)
+  const daynum = Math.floor((currendDate.getTime() - newYear.getTime() - (currendDate.getTimezoneOffset() - newYear.getTimezoneOffset()) * 60000) / 86400000) + 1
+  let weeknum
+  // if the year starts before the middle of a week
+  if (day < 4) {
+    weeknum = Math.floor((daynum + day - 1) / 7) + 1
+    if (weeknum > 52) {
+      const nYear = new Date(currendDate.getFullYear() + 1, 0, 1)
+      let nday: number = nYear.getDay() - dowOffset
+      nday = nday >= 0 ? nday : nday + 7
+      /* if the next year starts before the middle of
+        the week, it is week #1 of that year */
+      weeknum = nday < 4 ? 1 : 53
+    }
+  } else {
+    weeknum = Math.floor((daynum + day - 1) / 7)
+  }
+  return weeknum
+}
+
 export function testMonths (month: string | number): Months | string {
-  const monthVal: Months = Months[month as keyof typeof Months]
+  const monthVal: Months = Months[(typeof month === 'number' ? month - 1 : month) as keyof typeof Months]
   if (typeof monthVal === 'string') {
     return (<string>monthVal).toUpperCase()
   } else {
-    if (monthVal < 10) {
-      return '0' + (monthVal + 1).toString()
-    }
-    return monthVal + 1
+    return ((monthVal + 1) < 10 ? '0' : '') + (monthVal + 1).toString()
   }
 }
 
 function formatDate (format: string, month?: unknown): string {
-  const currnetDate = new Date()
-  const currentMonth = currnetDate.getMonth()
+  const currentDate = new Date()
+  const currentMonth = currentDate.getMonth()
+  const currentWeek = getWeek(currentDate)
   const formats = format.split('=')
   const dateFormat = (formats[0].replace('[', '').replace('date:', '').replace(']', ''))
   switch (dateFormat) {
     case 'D':
-      return currnetDate.getDate().toString()
+      return currentDate.getDate().toString()
     case 'DD':
-      return (currnetDate.getDate() < 10 ? '0' : '') + currnetDate.getDate().toString()
+      return (currentDate.getDate() < 10 ? '0' : '') + currentDate.getDate().toString()
+    case 'W':
+      return currentWeek.toString()
+    case 'WW':
+      return (currentWeek < 10 ? '0' : '') + currentWeek.toString()
     case 'M':
       return (currentMonth + 1).toString()
     case 'MM':
@@ -36,7 +71,7 @@ function formatDate (format: string, month?: unknown): string {
       return Months[currentMonth].toUpperCase()
     default:
       if (dateFormat) {
-        let currentYear = currnetDate.getFullYear()
+        let currentYear = currentDate.getFullYear()
         let yearFormat: string
         if (month) {
           yearFormat = format
@@ -101,7 +136,7 @@ export function formatDocumentNumber (format: string, value: string | number = '
       case (formatOnly[0][0] === 'v'):
         documentNumber += formatValue(formatOnly[0], value, size)
         break
-      case (formatOnly[0].substring(0, colonIndex) === 'date' || formatOnly[0][0] === 'Y' || formatOnly[0][0] === 'M' || formatOnly[0][0] === 'D'):
+      case (formatOnly[0].substring(0, colonIndex) === 'date' || formatOnly[0][0] === 'Y' || formatOnly[0][0] === 'M' || formatOnly[0][0] === 'D' || formatOnly[0][0] === 'W'):
         documentNumber += formatDate(formatOnly[0], month)
         break
       default:

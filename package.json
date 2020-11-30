@@ -1,6 +1,6 @@
 {
   "name": "document-number-formatter",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Document Number Formatter",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,12 +9,22 @@
   },
   "keywords": [
     "Document Number Formatter",
+    "Document Number Generator",
+    "Document Number Creator",
     "Document Number Format",
+    "Document Number",
     "Bill Number Formatter",
+    "Bill Number Generator",
+    "Bill Number Creator",
     "Bill Number Format",
+    "Bill Number",
     "Bill Formatter",
     "Number Formatter",
-    "Number Format"
+    "Number Generator",
+    "Number Creator",
+    "Number Format",
+    "Formatter",
+    "Format"
   ],
   "author": "Hariprasath Yadav",
   "license": "ISC",
