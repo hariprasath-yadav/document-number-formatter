@@ -10,7 +10,7 @@ npm i document-number-formatter
 
 Integrate In Node.js program:
 ```js
-var { formatDocumentNumber } = require('document-number-formatter')
+var { formatDocumentNumber, fdnForDate } = require('document-number-formatter')
 ```
 
 ## Examples :
@@ -20,8 +20,9 @@ console.log(formatDocumentNumber('DNF/[YY=apr]-[YY+1=apr]/[val:size:6]', 123))
 console.log(formatDocumentNumber('BNO/[val]/[YY]-[YY+1]', 546, 8, 'apr'))
 console.log(formatDocumentNumber('DNF/[YYYY=jan]/[MM]/[val]', 789, 5))
 console.log(formatDocumentNumber('BNO/[YYYY]/[MMM]/[v]', 432, 5, 4))
-console.log(formatDocumentNumber('[YYYY' + (false ? ']-01' : '=dec]-12' ) + '-01')))
-console.log(formatDocumentNumber('[D]/[DD]/[W]')))
+console.log(formatDocumentNumber('[YYYY' + (false ? ']-01' : '=dec]-12' ) + '-01'))
+console.log(formatDocumentNumber('[D]/[DD]/[W]'))
+console.log(fdnForDate('01 Mar 2021', 'DNF/[YY]-[YY+1]/[val]', 123, 4, "apr"))
 ```
 > if todays date is ***'01 Nov 2020'*** 
 ### Output :
@@ -32,6 +33,7 @@ DNF/2020/11/00789
 BNO/2020/NOV/00432
 2019-12-01
 1/01/45
+DNF/20-21/0123
 ```
 
 ## Docs for formatDocumentNumber():

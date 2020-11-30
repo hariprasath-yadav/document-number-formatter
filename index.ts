@@ -127,29 +127,31 @@ function formatValue (format: string, value: string | number, size: number): str
 }
 
 export function formatDocumentNumber (format: string, value: string | number = '0', size = 0, month?: string | number, currentDate: Date | string = new Date()): string {
-  const seperateFormats = format.split('[')
+  // const seperateFormats = format.split('[')
   let documentNumber = ''
-  seperateFormats.forEach(seperateFormat => {
-    const formatOnly = seperateFormat.split(']')
-    const colonIndex = formatOnly[0].indexOf(':')
+  let startIndex = 0
+  while (startIndex < format.length - 1) {
+    const openBracIndex = format.indexOf('[', startIndex)
+    documentNumber += format.substring(startIndex, (openBracIndex >= 0 ? openBracIndex : format.length))
+    if (openBracIndex < 0) {
+      break
+    }
+    const closeBracIndex = format.indexOf(']', openBracIndex)
+    const formatOnly = format.substring(openBracIndex + 1, closeBracIndex)
+    const colonIndex = formatOnly.indexOf(':')
     switch (true) {
-      case (formatOnly[0][0] === 'v'):
+      case (formatOnly[0] === 'v'):
         documentNumber += formatValue(formatOnly[0], value, size)
         break
-      case (formatOnly[0].substring(0, colonIndex) === 'date' || formatOnly[0][0] === 'Y' || formatOnly[0][0] === 'M' || formatOnly[0][0] === 'D' || formatOnly[0][0] === 'W'):
+      case (formatOnly.substring(0, colonIndex) === 'date' || formatOnly[0] === 'Y' || formatOnly[0] === 'M' || formatOnly[0] === 'D' || formatOnly[0] === 'W'):
         if (typeof currentDate === 'string') {
           currentDate = new Date(currentDate)
         }
-        documentNumber += formatDate(formatOnly[0], month, currentDate)
-        break
-      default:
-        documentNumber += formatOnly[0]
+        documentNumber += formatDate(formatOnly, month, currentDate)
         break
     }
-    if (formatOnly.length > 1) {
-      documentNumber += formatOnly[1]
-    }
-  })
+    startIndex = closeBracIndex + 1
+  }
   return documentNumber
 }
 
