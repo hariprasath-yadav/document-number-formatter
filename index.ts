@@ -46,8 +46,8 @@ export function testMonths (month: string | number): Months | string {
   }
 }
 
-function formatDate (format: string, month?: unknown): string {
-  const currentDate = new Date()
+function formatDate (format: string, month?: unknown, currentDate: Date = new Date()): string {
+  // const currentDate = new Date()
   const currentMonth = currentDate.getMonth()
   const currentWeek = getWeek(currentDate)
   const formats = format.split('=')
@@ -126,7 +126,7 @@ function formatValue (format: string, value: string | number, size: number): str
   return (formattedNumber)
 }
 
-export function formatDocumentNumber (format: string, value: string | number = '0', size = 0, month?: string | number): string {
+export function formatDocumentNumber (format: string, value: string | number = '0', size = 0, month?: string | number, currentDate: Date | string = new Date()): string {
   const seperateFormats = format.split('[')
   let documentNumber = ''
   seperateFormats.forEach(seperateFormat => {
@@ -137,7 +137,10 @@ export function formatDocumentNumber (format: string, value: string | number = '
         documentNumber += formatValue(formatOnly[0], value, size)
         break
       case (formatOnly[0].substring(0, colonIndex) === 'date' || formatOnly[0][0] === 'Y' || formatOnly[0][0] === 'M' || formatOnly[0][0] === 'D' || formatOnly[0][0] === 'W'):
-        documentNumber += formatDate(formatOnly[0], month)
+        if (typeof currentDate === 'string') {
+          currentDate = new Date(currentDate)
+        }
+        documentNumber += formatDate(formatOnly[0], month, currentDate)
         break
       default:
         documentNumber += formatOnly[0]
@@ -148,4 +151,8 @@ export function formatDocumentNumber (format: string, value: string | number = '
     }
   })
   return documentNumber
+}
+
+export function fdnForDate (currentDate: Date | string = new Date(), format: string, value: string | number = '0', size = 0, month?: string | number): string {
+  return formatDocumentNumber(format, value, size, month, currentDate)
 }

@@ -34,7 +34,7 @@ BNO/2020/NOV/00432
 1/01/45
 ```
 
-## Docs :
+## Docs for formatDocumentNumber():
 String between '[' and ']' brackets will be taken to comput the result.
 > if todays date is ***'01 Feb 2020'*** 
 
@@ -62,6 +62,19 @@ String between '[' and ']' brackets will be taken to comput the result.
 || arg3: size (optional) | Eg. 1: 4 || Size of the value should be in number, if the value length is smaller, '0's will leftpad to the value to match the size. |
 || arg4: month (optional) | Eg. 1: 'dec' (or) 'december'  || To specify the start month of the year, to format the number. This argument is case insensitive. |
 ||| Eg. 2: 12 || You can specify the month start as number |
+
+
+## Docs for fdnForDate():
+String between '[' and ']' brackets will be taken to comput the result.
+> You can pass your own js native date (or) date string as 1st arugment<br>
+> all arugments of formatDocumentNumber() can be used in this function also but it moved to one step forward<br>
+> for example 'format'('[YY]') argument is 2nd argument in this function<br>
+
+| Type | Sample Code For | Examples | Output | Desc |
+| -- | -- | -- | -- | -- |
+| Calendar | JS Date | Eg. 1: (new Date(), '[YY]') | 20 | if todays date is '01 Feb 2020' |
+||| Eg. 2: ('01 Feb 2020', '[WW]') | 05 | or you can pass date as raw date string that can product native JS date |
+
 
 ## Example and Explanation 1 :
 ### Example :
