@@ -26,12 +26,10 @@ function formatDate (format: string, month?: unknown): string {
       return currnetDate.getDate().toString()
     case 'DD':
       return (currnetDate.getDate() < 10 ? '0' : '') + currnetDate.getDate().toString()
+    case 'M':
+      return (currentMonth + 1).toString()
     case 'MM':
-      if (currentMonth < 10) {
-        return '0' + (currentMonth + 1).toString()
-      } else {
-        return (currentMonth + 1).toString()
-      }
+      return ((currentMonth + 1) < 10 ? '0' : '') + (currentMonth + 1).toString()
     case 'MMM':
       return Months[currentMonth].toUpperCase()
     case 'MMMM':
