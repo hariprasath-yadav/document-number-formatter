@@ -12,7 +12,7 @@ enum DaysMax { sunday, monday, tuesday, wednesday, thursday, friday, saturday }
  * @param int dowOffset
  * @return int
  */
-export function getWeek (currendDate: Date, dowOffset?: number): number {
+function getWeek (currendDate: Date, dowOffset?: number): number {
   /* getWeek() was developed by Nick Baicoianu at MeanFreePath: http://www.meanfreepath.com */
   dowOffset = typeof dowOffset === 'number' ? dowOffset : 0 // default dowOffset to zero
   const newYear = new Date(currendDate.getFullYear(), 0, 1)
@@ -95,7 +95,7 @@ export function formatDate (format: string, month?: unknown, currentDate: Date |
           } else if (month.length === 3) {
             month = MonthsMin[month.toLowerCase() as keyof typeof MonthsMin]
           } else if (month.length) {
-            month = +month
+            month = (+month) - 1
           }
         } else if (typeof month === 'number') {
           month -= 1
@@ -180,6 +180,6 @@ export function formatDocumentNumber (format: string, value: string | number = '
  * @param month - {type: string | number, optional, default: 'January') month of year start
  * @return string
  */
-export function fdnForDate (currentDate: Date | string = new Date(), format: string, value: string | number = '0', size = 0, month?: string | number): string {
+export function fdnForDate (currentDate: Date | string, format: string, value: string | number = '0', size = 0, month?: string | number): string {
   return formatDocumentNumber(format, value, size, month, currentDate)
 }

@@ -87,13 +87,12 @@ String between '[' and ']' brackets will be taken to comput the result.
 ||| Eg. 2: ('01 Feb 2020', '[WW]') | 05 | or you can pass date as raw date string that can product native JS date |
 
 ## Docs for formatDate():
-String between '[' and ']' brackets will be taken to comput the result.
 > If you want to format only the **'Calendar'** based string not the value you can use this function<br>
 > if todays date is ***'01 Feb 2020'*** 
 
 | Type | Sample Code For | Examples | Output |  Deafult Value | Desc |
 | -- | -- | -- | -- | -- | -- |
-| Args | arg1: format (mandantory) | Eg. 1: '[YY=apr]' | 20 || first arugment is format |
+| Args | arg1: format (mandantory) | Eg. 1: 'YY=apr' | 20 || first arugment is format, you can use any calendar mention in **'Docs for formatDocumentNumber()'** but with out '[' and ']' branckets, and you can use one format at a time.|
 || arg2: month (optional) | Eg. 1: 'dec' (or) 'december'  || 'jan' | To specify the start month of the year, to format the number. This argument is case insensitive. |
 | Calendar | arg3: currentDate (optional) | Eg. 1: new Date() | 20 | new Date() | if todays date is '01 Feb 2020' |
 ||| Eg. 2: '01 Feb 2020' | 05 || or you can pass date as raw date string that can product native JS date |
