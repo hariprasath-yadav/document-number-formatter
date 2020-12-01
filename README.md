@@ -1,4 +1,9 @@
 # 📃 Document Number Formatter #️⃣ 😃
+
+[![NPM Version](https://img.shields.io/badge/npm-v1.0.28-orange?logo=npm)](https://www.npmjs.com/package/document-number-formatter)
+[![License](https://img.shields.io/badge/license-SIC-green)](http://opensource.org/licenses/ISC)
+[![Language](https://img.shields.io/badge/code-Typescript-blue?logo=typescript)](https://www.typescriptlang.org/)<br>
+
 This package is used to generate the formatted number like ***'Bill Number'*** or other document number similar to ***'Bill Number'***
 
 ## Installation and Integration
