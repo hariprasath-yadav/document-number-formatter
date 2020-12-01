@@ -1,5 +1,5 @@
 # 📃 Document Number Formatter #️⃣ 😃
-This package is used to generate the formatted number ilke ***'Bill Number'*** or other document number similar to ***'Bill Number'***
+This package is used to generate the formatted number like ***'Bill Number'*** or other document number similar to ***'Bill Number'***
 
 ## Installation and Integration
 
@@ -23,7 +23,7 @@ console.log(formatDocumentNumber('BNO/[YYYY]/[MMM]/[v]', 432, 5, 4))
 console.log(formatDocumentNumber('[YYYY' + (false ? ']-01' : '=dec]-12' ) + '-01'))
 console.log(formatDocumentNumber('[D]/[DD]/[dd]/[ddd]/[dddd]/[MMMM]/[W]'))
 console.log(fdnForDate('01 Mar 2021', 'DNF/[YY]-[YY+1]/[val]', 123, 4, "apr"))
-console.log(formatDate('YYYY'))
+console.log(formatDate('YYYY', '4', '28 Mar 2020'))
 ```
 > if todays date is ***'01 Nov 2020'*** 
 ### Output :
@@ -35,7 +35,7 @@ BNO/2020/NOV/00432
 2019-12-01
 1/01/SU/SUN/SUNDAY/NOVEMBER/45
 DNF/20-21/0123
-2020
+2019
 ```
 
 ## Docs for formatDocumentNumber():
