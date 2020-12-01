@@ -4,6 +4,10 @@ enum Months {
   jul = july, aug = august, sep = septemper, oct = october, nov = november, dec = december
 }
 
+enum Days {
+  sun, mon, tue, wed, thu, fri, sat
+}
+
 /**
  * Returns the week number for this date.  dowOffset is the day of week the week
  * "starts" on for your locale - it can be from 0 to 6. If dowOffset is 1 (Monday),
@@ -57,6 +61,8 @@ function formatDate (format: string, month?: unknown, currentDate: Date = new Da
       return currentDate.getDate().toString()
     case 'DD':
       return (currentDate.getDate() < 10 ? '0' : '') + currentDate.getDate().toString()
+    case 'DDD':
+      return Days[currentDate.getDay()].toUpperCase()
     case 'W':
       return currentWeek.toString()
     case 'WW':
@@ -66,7 +72,6 @@ function formatDate (format: string, month?: unknown, currentDate: Date = new Da
     case 'MM':
       return ((currentMonth + 1) < 10 ? '0' : '') + (currentMonth + 1).toString()
     case 'MMM':
-      return Months[currentMonth].toUpperCase()
     case 'MMMM':
       return Months[currentMonth].toUpperCase()
     default:
@@ -127,7 +132,6 @@ function formatValue (format: string, value: string | number, size: number): str
 }
 
 export function formatDocumentNumber (format: string, value: string | number = '0', size = 0, month?: string | number, currentDate: Date | string = new Date()): string {
-  // const seperateFormats = format.split('[')
   let documentNumber = ''
   let startIndex = 0
   while (startIndex < format.length - 1) {
