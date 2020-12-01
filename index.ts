@@ -4,6 +4,10 @@ enum Months {
   jul = july, aug = august, sep = septemper, oct = october, nov = november, dec = december
 }
 
+enum DaysMin {
+  su, mo, tu, we, th, fr, sa
+}
+
 enum Days {
   sun, mon, tue, wed, thu, fri, sat
 }
@@ -61,7 +65,10 @@ function formatDate (format: string, month?: unknown, currentDate: Date = new Da
       return currentDate.getDate().toString()
     case 'DD':
       return (currentDate.getDate() < 10 ? '0' : '') + currentDate.getDate().toString()
+    case 'dd':
+      return DaysMin[currentDate.getDay()].toUpperCase()
     case 'DDD':
+    case 'ddd':
       return Days[currentDate.getDay()].toUpperCase()
     case 'W':
       return currentWeek.toString()
@@ -147,7 +154,7 @@ export function formatDocumentNumber (format: string, value: string | number = '
       case (formatOnly[0] === 'v'):
         documentNumber += formatValue(formatOnly[0], value, size)
         break
-      case (formatOnly.substring(0, colonIndex) === 'date' || formatOnly[0] === 'Y' || formatOnly[0] === 'M' || formatOnly[0] === 'D' || formatOnly[0] === 'W'):
+      case (formatOnly.substring(0, colonIndex) === 'date' || formatOnly[0] === 'Y' || formatOnly[0] === 'M' || formatOnly[0] === 'D' || formatOnly[0] === 'd' || formatOnly[0] === 'W'):
         if (typeof currentDate === 'string') {
           currentDate = new Date(currentDate)
         }
