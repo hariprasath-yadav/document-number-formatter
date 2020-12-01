@@ -83,19 +83,25 @@ export function formatDate (format: string, month?: unknown, currentDate: Date |
         let yearFormat: string
         if (month) {
           yearFormat = format
-          if (typeof month === 'string') {
-            month = Months[month.toLowerCase() as keyof typeof Months]
-          } else if (typeof month === 'number') {
-            month -= 1
-          }
-          if (currentMonth < <number>month) {
-            currentYear -= 1
-          }
         } else {
           yearFormat = formats[0]
-          if (formats.length > 1 && currentMonth < Months[formats[1].toLowerCase() as keyof typeof Months]) {
-            currentYear -= 1
+          if (formats.length > 1) {
+            month = formats[1]
           }
+        }
+        if (typeof month === 'string') {
+          if (month.length > 3) {
+            month = Months[month.toLowerCase() as keyof typeof Months]
+          } else if (month.length === 3) {
+            month = MonthsMin[month.toLowerCase() as keyof typeof MonthsMin]
+          } else if (month.length) {
+            month = +month
+          }
+        } else if (typeof month === 'number') {
+          month -= 1
+        }
+        if (currentMonth < <number>month) {
+          currentYear -= 1
         }
         let yearOnly = ''
         const plusSplit = yearFormat.split('+')
