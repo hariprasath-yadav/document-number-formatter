@@ -173,7 +173,7 @@ export function formatDocumentNumber (format: string, value: string | number = '
 
 /**
  * Return the value and current (or) passed date after formatted with given string
- * @param currentDate {type: string | Date, optional, default: new Date()) date to get format
+ * @param currentDate {type: string | Date, mandatory) date to get format
  * @param format - {type: string, mandatory} format to return
  * @param value - {type: string | number, optional} format to return
  * @param size - {type: number, optional, default: 0} format to return
