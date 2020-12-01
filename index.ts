@@ -85,7 +85,7 @@ function formatDate (format: string, month?: unknown, currentDate: Date = new Da
     case 'MMMM':
       return Months[currentMonth].toUpperCase()
     default:
-      if (dateFormat) {
+      if (dateFormat[0] === 'Y') {
         let currentYear = currentDate.getFullYear()
         let yearFormat: string
         if (month) {
@@ -120,9 +120,9 @@ function formatDate (format: string, month?: unknown, currentDate: Date = new Da
           yearOnly = yearFormat
         }
         const currentYearString = currentYear.toString()
-        return currentYearString.substr(4 - yearOnly.length)
+        return currentYearString.substr(currentYearString.length - yearOnly.length)
       } else {
-        return ''
+        return dateFormat
       }
   }
 }
