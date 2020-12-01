@@ -71,7 +71,7 @@ String between '[' and ']' brackets will be taken to comput the result.
 ## Docs for fdnForDate():
 String between '[' and ']' brackets will be taken to comput the result.
 > You can pass your own js native date (or) date string as 1st arugment<br>
-> all arugments of formatDocumentNumber() can be used in this function also but it moved to one step forward<br>
+> all arugments of formatDocumentNumber() can be used in this function also but it moved one step forward<br>
 > for example 'format'('[YY]') argument is 2nd argument in this function<br>
 
 | Type | Sample Code For | Examples | Output | Desc |
