@@ -21,7 +21,7 @@ console.log(formatDocumentNumber('BNO/[val]/[YY]-[YY+1]', 546, 8, 'apr'))
 console.log(formatDocumentNumber('DNF/[YYYY=jan]/[MM]/[val]', 789, 5))
 console.log(formatDocumentNumber('BNO/[YYYY]/[MMM]/[v]', 432, 5, 4))
 console.log(formatDocumentNumber('[YYYY' + (false ? ']-01' : '=dec]-12' ) + '-01'))
-console.log(formatDocumentNumber('[D]/[DD]/[dd]/[ddd]/[W]'))
+console.log(formatDocumentNumber('[D]/[DD]/[dd]/[ddd]/[dddd]/[MMMM]/[W]'))
 console.log(fdnForDate('01 Mar 2021', 'DNF/[YY]-[YY+1]/[val]', 123, 4, "apr"))
 ```
 > if todays date is ***'01 Nov 2020'*** 
@@ -32,7 +32,7 @@ BNO/00000546/20-21
 DNF/2020/11/00789
 BNO/2020/NOV/00432
 2019-12-01
-1/01/SU/SUN/45
+1/01/SU/SUN/SUNDAY/NOVEMBER/45
 DNF/20-21/0123
 ```
 
@@ -49,14 +49,16 @@ String between '[' and ']' brackets will be taken to comput the result.
 ||| Eg. 5: [YY+1=jan] | 21 | You can combine '+1' and 'month' in single statement like this. |
 ||| Eg. 6: [YY],<br>arg4: 'jan' | 21 | You can also specify start month as common by passing month as fourth argument |
 | Calendar | Month | Eg. 1: [M] | 2 | It will return current month as one digit numerical format |
-||| Eg. 2: [MM] | 02 | It will return current month as two digit numerical format |
+||| Eg. 2: [MM] | 02 | It will return current month as 2 digit numerical format |
 ||| Eg. 3: [MMM] | FEB | It will return month as 3 character alphabetic format |
+||| Eg. 4: [MMMM] | FEBURARY | It will return month as full name |
 | Calendar | Week | Eg. 1: [W] | 5 | It will return current week number as one digit numerical format |
 ||| Eg. 2: [WW] | 05 | It will return current week number as two digit numerical format |
 | Calendar | Date | Eg. 1: [D] | 1 | It will return current date in one character |
 ||| Eg. 2: [DD] | 01 | It will return current date in two characters |
-| Calendar | Day | Eg. 1: [dd] | SA | It will return current week day |
-||| Eg. 2: [ddd] or [DDD] | SAT | It will return current week day |
+| Calendar | Day | Eg. 1: [dd] | SA | It will return current week day in 2 character format |
+||| Eg. 2: [ddd] or [DDD] | SAT | It will return current week day in 3 character format |
+||| Eg. 3: [dddd] or [DDDD] | SATURDAY | It will return current week day in full name |
 | Value | Value | Eg. 1: [val:size:5],<br>arg2: 123 | 00123 | It will leftpad two '0's to the value passed as second argument to maintain value size. |
 ||| Eg. 2: [val:size:8],<br>arg2: 789 | 00000789 | It will leftpad five '0's if value's size is 3. |
 ||| Eg. 3: [val] or [v],<br>arg2: 789,<br>arg3: 8 | 00000789 | It will leftpad '0's to the value by the size passed as third argument |

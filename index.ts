@@ -1,16 +1,9 @@
-enum Months {
-  january, february, march, april, may, june, july, august, septemper, october, november, december,
-  jan = january, feb = february, mar = march, apr = april, jun = june,
-  jul = july, aug = august, sep = septemper, oct = october, nov = november, dec = december
-}
+enum MonthsMin { jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec }
+enum Months { january, february, march, april, may, june, july, august, septemper, october, november, december }
 
-enum DaysMin {
-  su, mo, tu, we, th, fr, sa
-}
-
-enum Days {
-  sun, mon, tue, wed, thu, fri, sat
-}
+enum DaysMin { su, mo, tu, we, th, fr, sa }
+enum Days { sun, mon, tue, wed, thu, fri, sat }
+enum DaysMax { sunday, monday, tuesday, wednesday, thursday, friday, saturday }
 
 /**
  * Returns the week number for this date.  dowOffset is the day of week the week
@@ -19,7 +12,6 @@ enum Days {
  * @param int dowOffset
  * @return int
  */
-// eslint-disable-next-line no-extend-native
 export function getWeek (currendDate: Date, dowOffset?: number): number {
   /* getWeek() was developed by Nick Baicoianu at MeanFreePath: http://www.meanfreepath.com */
   dowOffset = typeof dowOffset === 'number' ? dowOffset : 0 // default dowOffset to zero
@@ -45,22 +37,20 @@ export function getWeek (currendDate: Date, dowOffset?: number): number {
   return weeknum
 }
 
-export function testMonths (month: string | number): Months | string {
-  const monthVal: Months = Months[(typeof month === 'number' ? month - 1 : month) as keyof typeof Months]
-  if (typeof monthVal === 'string') {
-    return (<string>monthVal).toUpperCase()
-  } else {
-    return ((monthVal + 1) < 10 ? '0' : '') + (monthVal + 1).toString()
+/**
+ * Return the current (or) passed date after formatted with given string
+ * @param format - {type: string, mandatory} format to return
+ * @param month - {type: string | number, optional, default: 'January') month of year start
+ * @param currentDate {type: string | Date, optional, default: new Date()) date to get format
+ * @return string
+ */
+export function formatDate (format: string, month?: unknown, currentDate: Date | string = new Date()): string {
+  if (typeof currentDate === 'string') {
+    currentDate = new Date(currentDate)
   }
-}
-
-function formatDate (format: string, month?: unknown, currentDate: Date = new Date()): string {
-  // const currentDate = new Date()
   const currentMonth = currentDate.getMonth()
   const currentWeek = getWeek(currentDate)
-  const formats = format.split('=')
-  const dateFormat = (formats[0].replace('[', '').replace('date:', '').replace(']', ''))
-  switch (dateFormat) {
+  switch (format) {
     case 'D':
       return currentDate.getDate().toString()
     case 'DD':
@@ -70,9 +60,10 @@ function formatDate (format: string, month?: unknown, currentDate: Date = new Da
       return DaysMin[currentDate.getDay()].toUpperCase()
     case 'ddd':
     case 'DDD':
+      return Days[currentDate.getDay()].toUpperCase()
     case 'dddd':
     case 'DDDD':
-      return Days[currentDate.getDay()].toUpperCase()
+      return DaysMax[currentDate.getDay()].toUpperCase()
     case 'W':
       return currentWeek.toString()
     case 'WW':
@@ -82,10 +73,12 @@ function formatDate (format: string, month?: unknown, currentDate: Date = new Da
     case 'MM':
       return ((currentMonth + 1) < 10 ? '0' : '') + (currentMonth + 1).toString()
     case 'MMM':
+      return MonthsMin[currentMonth].toUpperCase()
     case 'MMMM':
       return Months[currentMonth].toUpperCase()
     default:
-      if (dateFormat[0] === 'Y') {
+      if (format[0] === 'Y') {
+        const formats = (format.replace('[', '').replace('date:', '').replace(']', '')).split('=')
         let currentYear = currentDate.getFullYear()
         let yearFormat: string
         if (month) {
@@ -93,18 +86,15 @@ function formatDate (format: string, month?: unknown, currentDate: Date = new Da
           if (typeof month === 'string') {
             month = Months[month.toLowerCase() as keyof typeof Months]
           } else if (typeof month === 'number') {
-            month = month - 1
+            month -= 1
           }
           if (currentMonth < <number>month) {
             currentYear -= 1
           }
         } else {
-          yearFormat = dateFormat
-          if (formats.length > 1) {
-            const formatMonth = (formats[1].replace('[', '').replace('=', '').replace(']', ''))
-            if (currentMonth < Months[formatMonth.toLowerCase() as keyof typeof Months]) {
-              currentYear -= 1
-            }
+          yearFormat = formats[0]
+          if (formats.length > 1 && currentMonth < Months[formats[1].toLowerCase() as keyof typeof Months]) {
+            currentYear -= 1
           }
         }
         let yearOnly = ''
@@ -122,14 +112,13 @@ function formatDate (format: string, month?: unknown, currentDate: Date = new Da
         const currentYearString = currentYear.toString()
         return currentYearString.substr(currentYearString.length - yearOnly.length)
       } else {
-        return dateFormat
+        return format
       }
   }
 }
 
 function formatValue (format: string, value: string | number, size: number): string {
   const valString = value.toString()
-  const valLength = valString.length
   let formatSize:number
   if (size) {
     formatSize = size
@@ -137,10 +126,18 @@ function formatValue (format: string, value: string | number, size: number): str
     formatSize = +(format.replace('[', '').replace('val:size:', '').replace('v', '').replace(']', ''))
   }
   const padString = (formatSize ? new Array(formatSize + 1).join('0') : '')
-  const formattedNumber = padString.substr(0, padString.length - valLength) + valString
-  return (formattedNumber)
+  return (padString.substr(0, padString.length - valString.length) + valString)
 }
 
+/**
+ * Return the value and current (or) passed date after formatted with given string
+ * @param format - {type: string, mandatory} format to return
+ * @param value - {type: string | number, optional} format to return
+ * @param size - {type: number, optional, default: 0} format to return
+ * @param month - {type: string | number, optional, default: 'January') month of year start
+ * @param currentDate {type: string | Date, optional, default: new Date()) date to get format
+ * @return string
+ */
 export function formatDocumentNumber (format: string, value: string | number = '0', size = 0, month?: string | number, currentDate: Date | string = new Date()): string {
   let documentNumber = ''
   let startIndex = 0
@@ -158,9 +155,6 @@ export function formatDocumentNumber (format: string, value: string | number = '
         documentNumber += formatValue(formatOnly[0], value, size)
         break
       case (formatOnly.substring(0, colonIndex) === 'date' || formatOnly[0] === 'Y' || formatOnly[0] === 'M' || formatOnly[0] === 'D' || formatOnly[0] === 'd' || formatOnly[0] === 'W'):
-        if (typeof currentDate === 'string') {
-          currentDate = new Date(currentDate)
-        }
         documentNumber += formatDate(formatOnly, month, currentDate)
         break
       default:
@@ -171,6 +165,15 @@ export function formatDocumentNumber (format: string, value: string | number = '
   return documentNumber
 }
 
+/**
+ * Return the value and current (or) passed date after formatted with given string
+ * @param currentDate {type: string | Date, optional, default: new Date()) date to get format
+ * @param format - {type: string, mandatory} format to return
+ * @param value - {type: string | number, optional} format to return
+ * @param size - {type: number, optional, default: 0} format to return
+ * @param month - {type: string | number, optional, default: 'January') month of year start
+ * @return string
+ */
 export function fdnForDate (currentDate: Date | string = new Date(), format: string, value: string | number = '0', size = 0, month?: string | number): string {
   return formatDocumentNumber(format, value, size, month, currentDate)
 }
