@@ -65,10 +65,13 @@ function formatDate (format: string, month?: unknown, currentDate: Date = new Da
       return currentDate.getDate().toString()
     case 'DD':
       return (currentDate.getDate() < 10 ? '0' : '') + currentDate.getDate().toString()
+    case 'd':
     case 'dd':
       return DaysMin[currentDate.getDay()].toUpperCase()
-    case 'DDD':
     case 'ddd':
+    case 'DDD':
+    case 'dddd':
+    case 'DDDD':
       return Days[currentDate.getDay()].toUpperCase()
     case 'W':
       return currentWeek.toString()
@@ -81,7 +84,10 @@ function formatDate (format: string, month?: unknown, currentDate: Date = new Da
     case 'MMM':
     case 'MMMM':
       return Months[currentMonth].toUpperCase()
-    default:
+    case 'Y':
+    case 'YY':
+    case 'YYY':
+    case 'YYYY':
       if (dateFormat) {
         let currentYear = currentDate.getFullYear()
         let yearFormat: string
@@ -121,6 +127,8 @@ function formatDate (format: string, month?: unknown, currentDate: Date = new Da
       } else {
         return ''
       }
+    default:
+      return dateFormat
   }
 }
 
@@ -160,6 +168,8 @@ export function formatDocumentNumber (format: string, value: string | number = '
         }
         documentNumber += formatDate(formatOnly, month, currentDate)
         break
+      default:
+        documentNumber += formatOnly
     }
     startIndex = closeBracIndex + 1
   }
