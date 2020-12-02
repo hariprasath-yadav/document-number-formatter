@@ -38,7 +38,7 @@ function getWeek (currendDate: Date, dowOffset?: number): number {
 }
 
 /**
- * Return the current (or) passed date after formatted with given string
+ * Returns the current (or) passed date after formatted with given string
  * @param format - {type: string, mandatory} format to return
  * @param month - {type: string | number, optional, default: 'January') month of year start
  * @param currentDate {type: string | Date, optional, default: new Date()) date to get format
@@ -78,7 +78,7 @@ export function formatDate (format: string, month?: unknown, currentDate: Date |
       return Months[currentMonth].toUpperCase()
     default:
       if (format[0] === 'Y') {
-        const formats = (format.replace('[', '').replace('date:', '').replace(']', '')).split('=')
+        const formats = (format.replace('[', '').replace(']', '')).split('=')
         let currentYear = currentDate.getFullYear()
         let yearFormat: string
         if (month) {
@@ -136,7 +136,7 @@ function formatValue (format: string, value: string | number, size: number): str
 }
 
 /**
- * Return the value and current (or) passed date after formatted with given string
+ * Returns the value and current (or) passed date after formatted with given string
  * @param format - {type: string, mandatory} format to return
  * @param value - {type: string | number, optional} format to return
  * @param size - {type: number, optional, default: 0} format to return
@@ -147,7 +147,7 @@ function formatValue (format: string, value: string | number, size: number): str
 export function formatDocumentNumber (format: string, value: string | number = '0', size = 0, month?: string | number, currentDate: Date | string = new Date()): string {
   let documentNumber = ''
   let startIndex = 0
-  while (startIndex < format.length - 1) {
+  while (startIndex < format.length) {
     const openBracIndex = format.indexOf('[', startIndex)
     documentNumber += format.substring(startIndex, (openBracIndex >= 0 ? openBracIndex : format.length))
     if (openBracIndex < 0) {
@@ -172,7 +172,7 @@ export function formatDocumentNumber (format: string, value: string | number = '
 }
 
 /**
- * Return the value and current (or) passed date after formatted with given string
+ * Returns the value and current (or) passed date after formatted with given string
  * @param currentDate {type: string | Date, mandatory) date to get format
  * @param format - {type: string, mandatory} format to return
  * @param value - {type: string | number, optional} format to return
