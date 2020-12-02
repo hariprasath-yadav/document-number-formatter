@@ -158,7 +158,7 @@ export function formatDocumentNumber (format: string, value: string | number = '
     const colonIndex = formatOnly.indexOf(':')
     switch (true) {
       case (formatOnly[0] === 'v'):
-        documentNumber += formatValue(formatOnly[0], value, size)
+        documentNumber += formatValue(formatOnly, value, size)
         break
       case (formatOnly.substring(0, colonIndex) === 'date' || formatOnly[0] === 'Y' || formatOnly[0] === 'M' || formatOnly[0] === 'D' || formatOnly[0] === 'd' || formatOnly[0] === 'W'):
         documentNumber += formatDate(formatOnly, month, currentDate)
