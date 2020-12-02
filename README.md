@@ -1,8 +1,13 @@
 # 📃 Document Number Formatter #️⃣ 😃
 
-[![NPM Version](https://img.shields.io/badge/npm-v1.0.28-orange?logo=npm)](https://www.npmjs.com/package/document-number-formatter)
-[![License](https://img.shields.io/badge/license-SIC-green)](http://opensource.org/licenses/ISC)
-[![Language](https://img.shields.io/badge/code-Typescript-blue?logo=typescript)](https://www.typescriptlang.org/)<br>
+[![NPM Version](https://img.shields.io/npm/v/document-number-formatter?color=orange&logo=npm)](https://www.npmjs.com/package/document-number-formatter)
+[![Downloads](https://img.shields.io/npm/dm/document-number-formatter)](https://www.npmjs.com/package/document-number-formatter)
+[![License](https://img.shields.io/npm/l/document-number-formatter)](http://opensource.org/licenses/ISC)
+[![Language](https://img.shields.io/github/languages/top/hariprasath-yadav/document-number-formatter?logo=typescript)](https://www.typescriptlang.org)
+[![Repository](https://img.shields.io/badge/repository-GitHub-grey?logo=github)](https://github.com/hariprasath-yadav/document-number-formatter)
+![Build](https://img.shields.io/badge/build-passing-success?logo=webpack)
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+<br>
 
 This package is used to generate the formatted number like ***'Bill Number'*** or other document number similar to ***'Bill Number'***
 
