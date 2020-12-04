@@ -1,4 +1,4 @@
-import { formatDocumentNumber, fdnForDate, formatDate } from '../index'
+import { formatDocumentNumber, fdnForDate, formatDate } from '../src/index'
 const dt = new Date('01 Feb 2020')
 // test.only('one Comand', () => {
 //   expect(formatDocumentNumber(']')).toBe(']')
