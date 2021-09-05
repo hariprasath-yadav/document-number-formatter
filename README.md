@@ -29,6 +29,10 @@ Integrate In Vue/React/Angular program:
 import { formatDocumentNumber, fdnForDate, formatDate } from 'document-number-formatter'
 ```
 
+Suggession
+
+Use with [Invoice Number](https://www.npmjs.com/package/invoice-number) package for more convenient.
+
 ## Examples :
 ✴️ [Click here](#example-and-explanation-2-) to view notable explanation
 ```js
